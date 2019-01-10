@@ -1,0 +1,214 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red92\green38\blue153;\red255\green255\blue255;\red170\green13\blue145;
+\red0\green0\blue0;\red63\green110\blue116;\red46\green13\blue110;\red28\green0\blue207;\red196\green26\blue22;
+}
+{\*\expandedcolortbl;;\csgenericrgb\c35900\c14900\c60100;\csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c66500\c5200\c56900;
+\csgenericrgb\c0\c0\c0;\csgenericrgb\c24700\c43100\c45600;\csgenericrgb\c18100\c5200\c43100;\csgenericrgb\c11000\c0\c81000;\csgenericrgb\c77000\c10200\c8600;
+}
+\margl1440\margr1440\vieww20940\viewh12080\viewkind0
+\deftab692
+\pard\tx692\pardeftab692\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 ********* PERMISOS *************\
+Camera Usage Description\
+Photo Library Usage Description\
+Location When In Use Usage Description\
+\
+********* contexto ************\
+\pard\tx692\pardeftab692\pardirnatural\partightenfactor0
+\cf4 func\cf5  conexion() -> \cf2 NSManagedObjectContext\cf5 \{
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 let\cf5  \ulth \ulc5 d\ulnone elegate = \cf2 UIApplication\cf5 .\cf2 shared\cf5 .\cf2 delegate\cf5  \cf4 as\cf5 ! \cf6 AppDelegate
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 return\cf5  delegate.persistentContainer.viewContext
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \}\cf2 \
+\
+\
+********* OBTENER COORDENADAS *****************\
+CLLocationManagerDelegate\
+\
+\cf4 var\cf5  manager = \cf2 CLLocationManager\cf5 ()
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf4 var\cf5  latitud : \cf2 CLLocationDegrees\cf5 !
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf4 var\cf5  longitud: \cf2 CLLocationDegrees\cf5 !\
+\
+\cf6 manager\cf5 .\cf2 delegate\cf5  = \cf4 self
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf6 manager\cf5 .\cf7 requestWhenInUseAuthorization\cf5 ()
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf6 manager\cf5 .\cf2 desiredAccuracy\cf5  = \cf2 kCLLocationAccuracyBest
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf6 manager\cf5 .\cf7 startUpdatingLocation\cf5 ()\
+\
+ \cf4 func\cf5  locationManager(\cf4 _\cf5  manager: \cf2 CLLocationManager\cf5 , didUpdateLocations locations: [\cf2 CLLocation\cf5 ]) \{
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 if\cf5  \cf4 let\cf5  location = locations.\cf2 first\cf5  \{
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5             \cf4 self\cf5 .\cf6 latitud\cf5  = location.\cf2 coordinate\cf5 .\cf2 latitude
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5             \cf4 self\cf5 .\cf6 longitud\cf5  = location.\cf2 coordinate\cf5 .\cf2 longitude
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \}
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \}\
+\
+******** VER MAPAS***********************\
+\
+\cf2 CLLocationManagerDelegate\
+\
+\cf4 var\cf5  manager = \cf2 CLLocationManager\cf5 ()
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf4 var\cf5  latitudMapa : \cf2 CLLocationDegrees\cf5 !
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf4 var\cf5  longitudMapa: \cf2 CLLocationDegrees\cf5 !\
+\
+\cf6 manager\cf5 .\cf2 delegate\cf5  = \cf4 self
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf6 manager\cf5 .\cf7 requestWhenInUseAuthorization\cf5 ()
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf6 manager\cf5 .\cf2 desiredAccuracy\cf5  = \cf2 kCLLocationAccuracyBest
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf6 manager\cf5 .\cf7 startUpdatingLocation\cf5 ()\
+\
+\cf4 func\cf5  locationManager(\cf4 _\cf5  manager: \cf2 CLLocationManager\cf5 , didUpdateLocations locations: [\cf2 CLLocation\cf5 ]) \{
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 let\cf5  localizacion = \cf7 CLLocationCoordinate2DMake\cf5 (\cf6 latitudMapa\cf5 , \cf6 longitudMapa\cf5 )
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 let\cf5  span = \cf7 MKCoordinateSpanMake\cf5 (\cf8 0.01\cf5 , \cf8 0.01\cf5 )
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 let\cf5  region = \cf7 MKCoordinateRegionMake\cf5 (localizacion, span)
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 self\cf5 .\cf6 mapa\cf5 .\cf7 setRegion\cf5 (region, animated: \cf4 true\cf5 )
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 self\cf5 .\cf6 mapa\cf5 .\cf2 showsUserLocation\cf5  = \cf4 true
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \}\
+\
+********* IMAGENES ************************\
+\
+\cf2 UIImagePickerControllerDelegate\cf5 , \cf2 UINavigationControllerDelegate\
+\
+\cf5  \cf4 if\cf5  \cf4 let\cf5  imagen = \cf6 imagen\cf5 .\cf2 image\cf5  \{
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5             \cf4 let\cf5  imagenFinal = \cf7 UIImagePNGRepresentation\cf5 (imagen) \cf4 as\cf5  \cf2 NSData\cf5 ?
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5             newImagen.\cf7 setValue\cf5 (imagenFinal, forKey: \cf9 \'93foto\'94\cf5 )
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \}\
+\
+\
+\cf4 @IBAction\cf5  \cf4 func\cf5  camara(\cf4 _\cf5  sender: \cf2 UIBarButtonItem\cf5 ) \{
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 let\cf5  imagePicker = \cf2 UIImagePickerController\cf5 ()
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         imagePicker.\cf2 delegate\cf5  = \cf4 self
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         imagePicker.\cf2 sourceType\cf5  = .\cf7 camera
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         imagePicker.\cf2 allowsEditing\cf5  = \cf4 true
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf7 present\cf5 (imagePicker, animated: \cf4 true\cf5 , completion: \cf4 nil\cf5 )
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \}
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \cf4 @IBAction\cf5  \cf4 func\cf5  galeria(\cf4 _\cf5  sender: \cf2 UIBarButtonItem\cf5 ) \{
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 let\cf5  imagePicker = \cf2 UIImagePickerController\cf5 ()
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         imagePicker.\cf2 delegate\cf5  = \cf4 self
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         imagePicker.\cf2 sourceType\cf5  = .\cf7 photoLibrary
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         imagePicker.\cf2 allowsEditing\cf5  = \cf4 true
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf7 present\cf5 (imagePicker, animated: \cf4 true\cf5 , completion: \cf4 nil\cf5 )
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \}
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \cf4 func\cf5  imagePickerController(\cf4 _\cf5  picker: \cf2 UIImagePickerController\cf5 , didFinishPickingMediaWithInfo info: [\cf2 String\cf5  : \cf4 Any\cf5 ]) \{
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf4 let\cf5  imagenTomada = info[\cf2 UIImagePickerControllerEditedImage\cf5 ] \cf4 as\cf5 ? \cf2 UIImage
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf6 imagen\cf5 .\cf2 image\cf5  = imagenTomada
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf7 dismiss\cf5 (animated: \cf4 true\cf5 , completion: \cf4 nil\cf5 )
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \}
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \cf4 func\cf5  imagePickerControllerDidCancel(\cf4 _\cf5  picker: \cf2 UIImagePickerController\cf5 ) \{
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5         \cf7 dismiss\cf5 (animated: \cf4 true\cf5 , completion: \cf4 nil\cf5 )
+\f1\fs24 \cf0 \
+
+\f0\fs28 \cf5     \}\
+\
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+\cf5 \
+\pard\tx692\pardeftab692\pardirnatural\partightenfactor0
+\cf5 \
+}
