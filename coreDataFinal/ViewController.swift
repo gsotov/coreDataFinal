@@ -85,6 +85,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.lugares = controller.fetchedObjects as! [Lugares]
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let botonBorrar = UITableViewRowAction(style: .destructive, title: "Borrar"){ (action, indexPath) in
+            
+            let contexto = self.conexion()
+            let borrar = self.fetchResultController.object(at: indexPath)
+            contexto.delete(borrar)
+            
+            do{
+                try contexto.save()
+                print("borrado")
+            }catch{
+                print("error al borrar")
+            }
+            
+        }
+        
+        let botonMapa = UITableViewRowAction(style: .default, title: "Mapa") { (action, indexPath) in
+             print("ver mapa")
+        }
+        botonMapa.backgroundColor = UIColor.blue
+        
+        let botonEditar = UITableViewRowAction(style: .default, title: "Editar") { (action, indexPath) in
+            print("editar")
+        }
+        botonEditar.backgroundColor = UIColor.gray
+        return [botonBorrar, botonMapa, botonEditar]
+    }
 
 }
 
