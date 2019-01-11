@@ -9,12 +9,15 @@
 import UIKit
 import CoreData
 
-class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var imagenLugar : Lugares!
+    var imagenes : [Imagenes] = []
     var id : Int16!
     var imagen : UIImage!
     
+    
+    @IBOutlet weak var collection: UICollectionView!
     func conexion () -> NSManagedObjectContext{
         let delegate = UIApplication.shared.delegate as! AppDelegate
         return delegate.persistentContainer.viewContext
@@ -23,11 +26,16 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collection.delegate = self
+        collection.dataSource = self
+        
         self.title = imagenLugar.nombre
         id = imagenLugar.id
         let rightButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(acccionCamarar))
         self.navigationItem.rightBarButtonItem = rightButton
         // Do any additional setup after loading the view.
+        
+        llamarImagen()
     }
     @objc func acccionCamarar(){
         print("abrir camara")
@@ -85,6 +93,8 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
         
         do {
             try contexto.save()
+            self.llamarImagen()
+            self.collection.reloadData()
             dismiss(animated: true, completion: nil)
             print("guardado entityImagenes")
         } catch let error as NSError {
@@ -98,4 +108,31 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
         dismiss(animated: true, completion: nil)
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imagenes.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ImagenCollectionViewCell
+        
+        let imagen = imagenes[indexPath.row]
+        
+        if let imagen = imagen.imagenes{
+            cell.imagen.image = UIImage(data: imagen as Data)
+            
+        }
+        return cell
+    }
+    func llamarImagen(){
+        let contexto = conexion()
+        let fetchRequest : NSFetchRequest<Imagenes> = Imagenes.fetchRequest()
+        
+        do {
+            imagenes = try contexto.fetch(fetchRequest)
+        } catch let error as NSError  {
+            print("no funciona", error)
+        }
+    }
 }
