@@ -32,8 +32,16 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
         self.title = imagenLugar.nombre
         id = imagenLugar.id
         let rightButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(acccionCamarar))
-        self.navigationItem.rightBarButtonItem = rightButton
-        // Do any additional setup after loading the view.
+        self.navigationItem.rightBarButtonItem = rightButton        
+        
+        //Se diseña para que el collection view se vea de a 3 en la vista
+        let itemSize = UIScreen.main.bounds.width/3 - 3
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
+        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+        layout.minimumLineSpacing = 3
+        layout.minimumLineSpacing = 3
+        collection.collectionViewLayout = layout
         
         llamarImagen()
     }
@@ -128,7 +136,8 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
     func llamarImagen(){
         let contexto = conexion()
         let fetchRequest : NSFetchRequest<Imagenes> = Imagenes.fetchRequest()
-        
+        let idLugar = String(id)
+        fetchRequest.predicate = NSPredicate(format: "id_lugares == %@", idLugar)
         do {
             imagenes = try contexto.fetch(fetchRequest)
         } catch let error as NSError  {
