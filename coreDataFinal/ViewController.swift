@@ -113,6 +113,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         botonEditar.backgroundColor = UIColor.gray
         return [botonBorrar, botonMapa, botonEditar]
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "imagenes", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "imagenes"
+        {
+            if let id = tabla.indexPathForSelectedRow
+            {
+                let fila = lugares[id.row]
+                let destino = segue.destination as! ImagenesLugaresViewController
+                destino.imagenLugar = fila
+            }
+        }
+    }
 
 }
 

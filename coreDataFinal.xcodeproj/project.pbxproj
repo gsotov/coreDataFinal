@@ -14,6 +14,7 @@
 		D7887EF521E79040009A6356 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7887EF421E79040009A6356 /* Assets.xcassets */; };
 		D7887EF821E79040009A6356 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7887EF621E79040009A6356 /* LaunchScreen.storyboard */; };
 		D7887F0021E7D1EE009A6356 /* AgregarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7887EFF21E7D1EE009A6356 /* AgregarViewController.swift */; };
+		D7887F0221E8D066009A6356 /* ImagenesLugaresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7887F0121E8D066009A6356 /* ImagenesLugaresViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		D7887EF721E79040009A6356 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7887EF921E79040009A6356 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7887EFF21E7D1EE009A6356 /* AgregarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgregarViewController.swift; sourceTree = "<group>"; };
+		D7887F0121E8D066009A6356 /* ImagenesLugaresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagenesLugaresViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				D7887EEA21E7903F009A6356 /* AppDelegate.swift */,
 				D7887EEC21E7903F009A6356 /* ViewController.swift */,
 				D7887EFF21E7D1EE009A6356 /* AgregarViewController.swift */,
+				D7887F0121E8D066009A6356 /* ImagenesLugaresViewController.swift */,
 				D7887EEE21E7903F009A6356 /* Main.storyboard */,
 				D7887EF421E79040009A6356 /* Assets.xcassets */,
 				D7887EF621E79040009A6356 /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 				D7887EED21E7903F009A6356 /* ViewController.swift in Sources */,
 				D7887EEB21E7903F009A6356 /* AppDelegate.swift in Sources */,
 				D7887F0021E7D1EE009A6356 /* AgregarViewController.swift in Sources */,
+				D7887F0221E8D066009A6356 /* ImagenesLugaresViewController.swift in Sources */,
 				D7887EF321E7903F009A6356 /* coreDataFinal.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
