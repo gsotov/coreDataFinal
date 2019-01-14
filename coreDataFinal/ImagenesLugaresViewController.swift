@@ -15,6 +15,7 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
     var imagenes : [Imagenes] = []
     var id : Int16!
     var imagen : UIImage!
+    var refrescar : UIRefreshControl!
     
     
     @IBOutlet weak var collection: UICollectionView!
@@ -32,18 +33,26 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
         self.title = imagenLugar.nombre
         id = imagenLugar.id
         let rightButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(acccionCamarar))
-        self.navigationItem.rightBarButtonItem = rightButton        
+        self.navigationItem.rightBarButtonItem = rightButton
         
         //Se diseña para que el collection view se vea de a 3 en la vista
         let itemSize = UIScreen.main.bounds.width/3 - 3
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
-        layout.minimumLineSpacing = 3
+        layout.minimumInteritemSpacing = 3
         layout.minimumLineSpacing = 3
         collection.collectionViewLayout = layout
         
         llamarImagen()
+        
+        // pull to refresh
+        refrescar = UIRefreshControl()
+        collection.alwaysBounceVertical = true
+        refrescar.tintColor = UIColor.green
+        refrescar.addTarget(self, action: #selector(recargarDatos), for: .valueChanged)
+        collection.addSubview(refrescar)
+        
     }
     @objc func acccionCamarar(){
         print("abrir camara")
@@ -75,7 +84,8 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func entrarGaleria(){
+    func entrarGaleria()
+    {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
@@ -112,17 +122,21 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
         
     }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
         dismiss(animated: true, completion: nil)
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int
+    {
         return 1
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
         return imagenes.count
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
         let cell = collection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ImagenCollectionViewCell
         
         let imagen = imagenes[indexPath.row]
@@ -133,7 +147,8 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
         }
         return cell
     }
-    func llamarImagen(){
+    func llamarImagen()
+    {
         let contexto = conexion()
         let fetchRequest : NSFetchRequest<Imagenes> = Imagenes.fetchRequest()
         let idLugar = String(id)
@@ -142,6 +157,32 @@ class ImagenesLugaresViewController: UIViewController, UIImagePickerControllerDe
             imagenes = try contexto.fetch(fetchRequest)
         } catch let error as NSError  {
             print("no funciona", error)
+        }
+    }
+    
+    @objc func recargarDatos()
+    {
+        llamarImagen()
+        collection.reloadData()
+        stop()
+    }
+    
+    func stop()
+    {
+        refrescar.endRefreshing()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        performSegue(withIdentifier: "imagen", sender: indexPath)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "imagen"{
+            let id = sender as! NSIndexPath
+            let fila = imagenes[id.row]
+            let destino = segue.destination as! ImagenVistaViewController
+            destino.imagenLugar = fila
         }
     }
 }

@@ -103,7 +103,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         let botonMapa = UITableViewRowAction(style: .default, title: "Mapa") { (action, indexPath) in
-             print("ver mapa")
+             self.performSegue(withIdentifier: "mapa", sender: indexPath)
         }
         botonMapa.backgroundColor = UIColor.blue
         
@@ -126,6 +126,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let destino = segue.destination as! ImagenesLugaresViewController
                 destino.imagenLugar = fila
             }
+        }
+        
+        if segue.identifier == "mapa"{
+            let id = sender as! NSIndexPath
+            let fila = lugares[id.row]
+            let destino = segue.destination as! MapaViewController
+            destino.coordLugares = fila
         }
     }
 

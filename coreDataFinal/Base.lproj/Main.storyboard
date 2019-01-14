@@ -62,6 +62,7 @@
                     <connections>
                         <outlet property="tabla" destination="lIU-qa-a4Q" id="rak-gY-aVG"/>
                         <segue destination="Hhu-jD-Iri" kind="show" identifier="imagenes" id="otW-je-Fs5"/>
+                        <segue destination="zMw-Mp-OwI" kind="show" identifier="mapa" id="pBq-xA-nG9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -122,11 +123,55 @@
                     </view>
                     <connections>
                         <outlet property="collection" destination="6D7-6C-M7g" id="YBQ-Rs-hGa"/>
+                        <segue destination="9An-NZ-7fS" kind="show" identifier="imagen" id="Laa-Q2-Hcu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rse-h0-J1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2432.8000000000002" y="-296.40179910044981"/>
+        </scene>
+        <!--Imagen Vista View Controller-->
+        <scene sceneID="xxu-9l-amV">
+            <objects>
+                <viewController id="9An-NZ-7fS" customClass="ImagenVistaViewController" customModule="coreDataFinal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ort-9y-AN0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whv-LQ-ZU9">
+                                <rect key="frame" x="16" y="588" width="343" height="30"/>
+                                <color key="backgroundColor" red="0.92156862750000001" green="0.0" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Borrar">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="eliminar:" destination="9An-NZ-7fS" eventType="touchUpInside" id="rmf-Y7-nmc"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oCU-b5-jQA">
+                                <rect key="frame" x="0.0" y="64" width="375" height="516"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="whv-LQ-ZU9" firstAttribute="bottom" secondItem="3zi-J1-YCp" secondAttribute="bottom" id="6fl-7O-kCL"/>
+                            <constraint firstItem="oCU-b5-jQA" firstAttribute="trailing" secondItem="3zi-J1-YCp" secondAttribute="trailing" id="ENl-85-jqH"/>
+                            <constraint firstItem="whv-LQ-ZU9" firstAttribute="top" secondItem="3zi-J1-YCp" secondAttribute="top" constant="524" id="Gcf-jS-g91"/>
+                            <constraint firstItem="oCU-b5-jQA" firstAttribute="leading" secondItem="3zi-J1-YCp" secondAttribute="leading" id="HKa-I9-ckz"/>
+                            <constraint firstItem="oCU-b5-jQA" firstAttribute="top" secondItem="3zi-J1-YCp" secondAttribute="top" id="KIV-UB-Wpu"/>
+                            <constraint firstItem="whv-LQ-ZU9" firstAttribute="leading" secondItem="3zi-J1-YCp" secondAttribute="leading" constant="16" id="Ns2-OX-NqN"/>
+                            <constraint firstItem="3zi-J1-YCp" firstAttribute="trailing" secondItem="whv-LQ-ZU9" secondAttribute="trailing" constant="16" id="SAX-SE-nOI"/>
+                            <constraint firstItem="whv-LQ-ZU9" firstAttribute="top" secondItem="oCU-b5-jQA" secondAttribute="bottom" constant="8" id="mdN-vo-hiS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3zi-J1-YCp"/>
+                    </view>
+                    <connections>
+                        <outlet property="imagen" destination="oCU-b5-jQA" id="zcv-cU-fXZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W2T-aL-SAW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3164" y="-298.2008995502249"/>
         </scene>
         <!--Agregar-->
         <scene sceneID="ZSd-Vf-FF7">
@@ -201,17 +246,60 @@
             </objects>
             <point key="canvasLocation" x="1717.5999999999999" y="374.66266866566718"/>
         </scene>
-        <!--View Controller-->
+        <!--Mapa View Controller-->
+        <scene sceneID="W2w-tb-Ouh">
+            <objects>
+                <viewController id="zMw-Mp-OwI" customClass="MapaViewController" customModule="coreDataFinal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JnS-7O-E0p">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Vvd-td-Lx9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Vvd-td-Lx9" firstAttribute="top" secondItem="ruY-Bx-V2s" secondAttribute="top" id="BWM-Ng-Ixi"/>
+                            <constraint firstItem="ruY-Bx-V2s" firstAttribute="trailing" secondItem="Vvd-td-Lx9" secondAttribute="trailing" id="LtX-YH-pzh"/>
+                            <constraint firstItem="ruY-Bx-V2s" firstAttribute="bottom" secondItem="Vvd-td-Lx9" secondAttribute="bottom" id="dIH-Cp-pMe"/>
+                            <constraint firstItem="Vvd-td-Lx9" firstAttribute="leading" secondItem="ruY-Bx-V2s" secondAttribute="leading" id="ePz-kT-5wj"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ruY-Bx-V2s"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapa" destination="Vvd-td-Lx9" id="oCd-gp-V7S"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="naD-QW-6kE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2433" y="375"/>
+        </scene>
+        <!--Mapa Full View Controller-->
         <scene sceneID="eAU-g4-TTj">
             <objects>
-                <viewController id="QEz-nX-80O" sceneMemberID="viewController">
+                <viewController id="QEz-nX-80O" customClass="MapaFullViewController" customModule="coreDataFinal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pfP-zK-jjG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hGY-m8-UoD">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hGY-m8-UoD" firstAttribute="leading" secondItem="7OS-Nx-dnE" secondAttribute="leading" id="AFD-Fa-Ktb"/>
+                            <constraint firstItem="hGY-m8-UoD" firstAttribute="top" secondItem="7OS-Nx-dnE" secondAttribute="top" id="JJc-CB-2Bd"/>
+                            <constraint firstItem="7OS-Nx-dnE" firstAttribute="trailing" secondItem="hGY-m8-UoD" secondAttribute="trailing" id="RGB-Kk-GKp"/>
+                            <constraint firstItem="7OS-Nx-dnE" firstAttribute="bottom" secondItem="hGY-m8-UoD" secondAttribute="bottom" id="hfF-Nh-MPb"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="7OS-Nx-dnE"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="aAb-m9-dCI"/>
+                    <connections>
+                        <outlet property="mapa" destination="hGY-m8-UoD" id="ut4-4Z-WDU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odn-Ct-IxX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
